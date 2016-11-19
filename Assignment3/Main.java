@@ -64,7 +64,10 @@ public class Main {
 
         //Get number of arguments before --
         for (int i = 0; i < args.length; i++) {
-            if (args[i].toString().equals("--")) {
+            if (args.length<4){
+                newMain.usage();
+            }
+            else if (args[i].toString().equals("--")) {
                 noOfDoubleDash++;
                 realDelimeterPos = i;
                 trueReplaceOptions = i;

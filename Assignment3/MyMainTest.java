@@ -284,7 +284,7 @@ public class MyMainTest {
         // TestCases for Category Partition
         //Purpose of testcase: testing replace functionality on one non empty file with one replace combination(-b) where
         //FromStringContent = special characters(>1) and toStringContent = special characters(>1). Here it creates a
-        //backup of a file and does not replace anything.
+        //backup of a file and should replace all matching strings (case sensitive).
         //TestCase Number : 16
 
         /*
@@ -300,14 +300,14 @@ public class MyMainTest {
 
         */
         File inputFile1 = createFileA();
-        String args[] = {"-b", "!!!", "!@#$", "--", inputFile1.getPath()};
+        String args[] = {"-b", "!!", "!--@!", "--", inputFile1.getPath()};
         Main.main(args);
 
         String expected = "Testing File :\n" +
                 "Replace utility is used to test a file with replace options\n" +
-                "now let's test it!!!\n" +
+                "now let's test it!--@!!\n" +
                 "this file has a bunch of codes...\n" +
-                "We all know that \"Replace Utility\" is awesome!!";
+                "We all know that \"Replace Utility\" is awesome!--@!";
 
         String actual = getFileContent(inputFile1.getPath());
         //assertEquals("The files match!", expected, actual);
@@ -939,7 +939,7 @@ public class MyMainTest {
 
         //Purpose of testcase: testing replace functionality on two non empty files with one replace combination(-b) where
         //FromStringContent = special characters(>1) and toStringContent = special characters(>1). Here it creates a
-        //backup of a file and does not replace anything.
+        //backup of a file and replace all matching string(case sensitive).
 
 
         /*
@@ -954,20 +954,20 @@ public class MyMainTest {
         */
         File inputFile1 = createFileA();
         File inputFile2 = createFileB();
-        String args[] = {"-b", "!!!", "!@#$", "--", inputFile1.getPath(), inputFile2.getPath()};
+        String args[] = {"-b", "!!", "te!E!st", "--", inputFile1.getPath(), inputFile2.getPath()};
         Main.main(args);
 
         String expected1 = "Testing File :\n" +
                 "Replace utility is used to test a file with replace options\n" +
-                "now let's test it!!!\n" +
+                "now let's test itte!E!st!\n" +
                 "this file has a bunch of codes...\n" +
-                "We all know that \"Replace Utility\" is awesome!!";
+                "We all know that \"Replace Utility\" is awesomete!E!st";
 
         String expected2 = "\"Test File:2\"\n" +
-                "This is a test file 2 for the replace utility!!\n" +
-                "The replace can happen in multiple files!! @@ xx yy zz\n" +
+                "This is a test file 2 for the replace utilityte!E!st\n" +
+                "The replace can happen in multiple fileste!E!st @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
-                "As always this is going to be interesting and we know it!!";
+                "As always this is going to be interesting and we know itte!E!st";
 
 
         String actual1 = getFileContent(inputFile1.getPath());
@@ -1749,8 +1749,8 @@ public class MyMainTest {
     public void myMainTest38() throws Exception {
 
         //Purpose of testcase: testing replace functionality on three non empty files with one replace combination(-b) where
-        //FromStringContent = special characters(>1) and toStringContent = special characters(>1). Here it creates a
-        //backup of a file and does not replace anything.
+        //FromStringContent = alphanumeric characters(>1) and toStringContent = alphanumeric characters(>1). Here it creates a
+        //backup of a file and replaces the matching string(case sensitive).
 
         /*
 
@@ -1759,30 +1759,30 @@ public class MyMainTest {
         Content of replace file                                      :  Non-empty
         Options For Replace                                          :  One replace option combination(b, f , l , i)
         FromStringLength                                             :  >1
-        FromStringContent                                            :  special characters
+        FromStringContent                                            :  alphanumeric characters
         ToStringLength                                               :  >1
-        ToStringContent                                              :  special characters
+        ToStringContent                                              :  alphanumeric characters
 
         */
         File inputFile1 = createFileA();
         File inputFile2 = createFileB();
         File inputFile3 = createFileC();
-        String args[] = {"-b", "!!!", "!@#$", "--", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath()};
+        String args[] = {"-b", "test", "T33st", "--", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath()};
         Main.main(args);
 
         String expected1 = "Testing File :\n" +
-                "Replace utility is used to test a file with replace options\n" +
-                "now let's test it!!!\n" +
+                "Replace utility is used to T33st a file with replace options\n" +
+                "now let's T33st it!!!\n" +
                 "this file has a bunch of codes...\n" +
                 "We all know that \"Replace Utility\" is awesome!!";
 
         String expected2 = "\"Test File:2\"\n" +
-                "This is a test file 2 for the replace utility!!\n" +
+                "This is a T33st file 2 for the replace utility!!\n" +
                 "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
                 "As always this is going to be interesting and we know it!!";
         String expected3 = "\"Test File:3\"\n" +
-                "This is a test file 3 for the replace utility!!\n" +
+                "This is a T33st file 3 for the replace utility!!\n" +
                 "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
                 "As always this is going to be interesting and we know it!!";
