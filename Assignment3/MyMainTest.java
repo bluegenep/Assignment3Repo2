@@ -1911,7 +1911,7 @@ public class MyMainTest {
     public void myMainTest41() throws Exception {
 
         //Purpose of testcase: testing replace functionality on three non empty files with two replace combination(-f, -l) where
-        //FromStringContent = alphanumeric characters(>1) and toStringContent = special characters(>1). Here it
+        //FromStringContent = alphanumeric characters(>1) and toStringContent. Here it
         // replaces the first occurrence and last occurrence of string
 
         /*
@@ -1923,7 +1923,7 @@ public class MyMainTest {
         FromStringLength                                             :  >1
         FromStringContent                                            :  alphanumeric characters
         ToStringLength                                               :  >1
-        ToStringContent                                              :  special characters
+
         */
         File inputFile1 = createFileD();
         File inputFile2 = createFileB();
@@ -1963,7 +1963,7 @@ public class MyMainTest {
 
 
         //Purpose of testcase: testing replace functionality on three non empty file with two replace combination(-b ,-i) where
-        //FromStringContent = alphanumeric characters(>1) and toStringContent = spaces(>1). Here it replaces
+        //FromStringContent  and toStringContent. Here it replaces
         //the all occurrences of string (case insensitive) and creates a backup of the file
 
 
@@ -1974,7 +1974,7 @@ public class MyMainTest {
         Content of replace file                                      :  Non-empty
         Options For Replace                                          :  Two replace options combination(b & f, b & l, b & i, f & l, f & i, l & i)
         FromStringLength                                             :  >1
-        FromStringContent                                            :  alphanumeric characters
+        FromStringContent                                            :  special characters
         ToStringLength                                               :  >1
         ToStringContent                                              :  spaces
         */
@@ -2144,7 +2144,7 @@ public class MyMainTest {
 
         //Purpose of testcase: testing replace functionality on four non empty file with three replace combination(-b, -f, -i) where
         //FromStringContent = alphanumeric characters(>1) and toStringContent = special characters(>1). Here it replaces
-        //the first occurrence, all occurrence(case insensitive)  of string
+        //the first occurrence(case insensitive)  of string
 
         /*
 
@@ -2165,26 +2165,26 @@ public class MyMainTest {
         Main.main(args);
 
         String expected1 = "Testing File :\n" +
-                "!@lace utility is used to test a file with !@lace options\n" +
+                "!@lace utility is used to test a file with replace options\n" +
                 "now let's test it!!!\n" +
                 "this file has a bunch of codes...\n" +
-                "We all know that \"!@lace Utility\" is awesome!!";
+                "We all know that \"Replace Utility\" is awesome!!";
 
 
         String expected2 = "\"Test File:2\"\n" +
                 "This is a test file 2 for the !@lace utility!!\n" +
-                "The !@lace can happen in multiple files!! @@ xx yy zz\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
                 "As always this is going to be interesting and we know it!!";
 
         String expected3 = "\"Test File:3\"\n" +
                 "This is a test file 3 for the !@lace utility!!\n" +
-                "The !@lace can happen in multiple files!! @@ xx yy zz\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
                 "As always this is going to be interesting and we know it!!";
         String expected4 = "\"Test File:4\"\n" +
                 "This is a test file 4 for the !@lace utility!!\n" +
-                "The !@lace can happen in multiple files!! @@ xx yy zz\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
                 "As always this is going to be interesting and we know it!!";
 
@@ -2213,7 +2213,7 @@ public class MyMainTest {
 
         //Purpose of testcase: testing replace functionality on four non empty files with three replace combination(-f, -l, -i) where
         //FromStringContent = alphanumeric characters(>1) and toStringContent = spaces(>1). Here it replaces
-        //the first, last occurrence of string and all occurrence (case insensitive).
+        //the  first occurrence of string and all occurrence (case insensitive).
 
         /*
         Presence of a file(s) where replace functionality is applied :  Four file
@@ -2277,7 +2277,7 @@ public class MyMainTest {
     public void myMainTest47() throws Exception {
         //Purpose of testcase: testing replace functionality on four non empty files with three replace combination(-l, -i, -b) where
         //FromStringContent = special characters(>1) and toStringContent = special characters(>1). Here it replaces
-        //the last occurrence of string, all occurrence of string (case insensitive) and creates a back up of the file
+        //the last occurrence of string(case insensitive) and creates a back up of the file
 
         /*
 
@@ -2285,41 +2285,39 @@ public class MyMainTest {
         Content of replace file                                      :  Non-empty
         Options For Replace                                          :  Three replace options combination (b&f&l, b&f&i, f&l&i, l&i&b, l&i&f)
         FromStringLength                                             :  >1
-        FromStringContent                                            :  special characters
         ToStringLength                                               :  >1
-        ToStringContent                                              :  special characters
 
         */
         File inputFile1 = createFileA();
         File inputFile2 = createFileB();
         File inputFile3 = createFileC();
         File inputFile4 = createFileE();
-        String args[] = {"-l", "-i", "-b", "!!", "@@", "--", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
+        String args[] = {"-l", "-i", "-b", "ce", "@@", "--", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
         Main.main(args);
 
         String expected1 = "Testing File :\n" +
                 "Replace utility is used to test a file with replace options\n" +
-                "now let's test it@@!\n" +
+                "now let's test it!!!\n" +
                 "this file has a bunch of codes...\n" +
-                "We all know that \"Replace Utility\" is awesome@@";
+                "We all know that \"Repla@@ Utility\" is awesome!!";
 
         String expected2 = "\"Test File:2\"\n" +
-                "This is a test file 2 for the replace utility@@\n" +
-                "The replace can happen in multiple files@@ @@ xx yy zz\n" +
+                "This is a test file 2 for the replace utility!!\n" +
+                "The repla@@ can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
-                "As always this is going to be interesting and we know it@@";
+                "As always this is going to be interesting and we know it!!";
 
         String expected3 = "\"Test File:3\"\n" +
-                "This is a test file 3 for the replace utility@@\n" +
-                "The replace can happen in multiple files@@ @@ xx yy zz\n" +
+                "This is a test file 3 for the replace utility!!\n" +
+                "The repla@@ can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
-                "As always this is going to be interesting and we know it@@";
+                "As always this is going to be interesting and we know it!!";
 
         String expected4 = "\"Test File:4\"\n" +
-                "This is a test file 4 for the replace utility@@\n" +
-                "The replace can happen in multiple files@@ @@ xx yy zz\n" +
+                "This is a test file 4 for the replace utility!!\n" +
+                "The repla@@ can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
-                "As always this is going to be interesting and we know it@@";
+                "As always this is going to be interesting and we know it!!";
 
 
         String actual1 = getFileContent(inputFile1.getPath());
@@ -2344,7 +2342,7 @@ public class MyMainTest {
     public void myMainTest48() throws Exception {
         //Purpose of testcase: testing replace functionality on four non empty files with three replace combination(-l, -i, -f)) where
         //FromStringContent = spaces (>1) and toStringContent = alphanumeric characters(>1). Here it replaces
-        //the first and last occurrence of string, all occurrence with no case insensitivity.
+        //the first occurrence with case insensitivity.
 
 
         /*
@@ -2413,7 +2411,7 @@ public class MyMainTest {
 
         //Purpose of testcase: testing replace functionality on four non empty files with four replace combination(-l, -b, -f, -i) where
         //FromStringContent = alphanumeric characters(>1) and toStringContent = alphanumeric characters(>1). Here it replaces
-        //the first, last occurrence of string and all occurrence (case insensitive) and creates a back up of the file as well.
+        //the first occurrence (case insensitive) and creates a back up of the file as well.
 
 
         /*
@@ -2435,26 +2433,26 @@ public class MyMainTest {
         Main.main(args);
 
         String expected1 = "Testing drive :\n" +
-                "Replace utility is used to test a drive with replace options\n" +
+                "Replace utility is used to test a file with replace options\n" +
                 "now let's test it!!!\n" +
-                "this drive has a bunch of codes...\n" +
+                "this file has a bunch of codes...\n" +
                 "We all know that \"Replace Utility\" is awesome!!";
 
         String expected2 = "\"Test drive:2\"\n" +
-                "This is a test drive 2 for the replace utility!!\n" +
-                "The replace can happen in multiple drives!! @@ xx yy zz\n" +
+                "This is a test file 2 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
                 "As always this is going to be interesting and we know it!!";
 
         String expected3 = "\"Test drive:3\"\n" +
-                "This is a test drive 3 for the replace utility!!\n" +
-                "The replace can happen in multiple drives!! @@ xx yy zz\n" +
+                "This is a test file 3 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
                 "As always this is going to be interesting and we know it!!";
 
         String expected4 = "\"Test drive:4\"\n" +
-                "This is a test drive 4 for the replace utility!!\n" +
-                "The replace can happen in multiple drives!! @@ xx yy zz\n" +
+                "This is a test file 4 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
                 "As always this is going to be interesting and we know it!!";
 
@@ -2482,7 +2480,7 @@ public class MyMainTest {
 
         //Purpose of testcase: testing replace functionality on four non empty file with four replace combination(-l, -b, -f, -i) where
         //FromStringContent = alphanumeric characters(>1) and toStringContent = special characters(>1). Here it replaces
-        //the firs, last occurrence of string and all occurrence (case insensitive) and creates a back up of the file as well.
+        //the first occurrence (case insensitive) and creates a back up of the file as well.
 
         /*
 
@@ -2499,30 +2497,30 @@ public class MyMainTest {
         File inputFile2 = createFileB();
         File inputFile3 = createFileC();
         File inputFile4 = createFileE();
-        String args[] = {"-l", "-b", "-f", "-i", "File", "@@@/", "--", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
+        String args[] = {"-l", "-b", "-f", "-i", "file", "@@@/", "--", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
         Main.main(args);
 
         String expected1 = "Testing @@@/ :\n" +
-                "Replace utility is used to test a @@@/ with replace options\n" +
+                "Replace utility is used to test a file with replace options\n" +
                 "now let's test it!!!\n" +
-                "this @@@/ has a bunch of codes...\n" +
+                "this file has a bunch of codes...\n" +
                 "We all know that \"Replace Utility\" is awesome!!";
 
         String expected2 = "\"Test @@@/:2\"\n" +
-                "This is a test @@@/ 2 for the replace utility!!\n" +
-                "The replace can happen in multiple @@@/s!! @@ xx yy zz\n" +
+                "This is a test file 2 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
                 "As always this is going to be interesting and we know it!!";
 
         String expected3 = "\"Test @@@/:3\"\n" +
-                "This is a test @@@/ 3 for the replace utility!!\n" +
-                "The replace can happen in multiple @@@/s!! @@ xx yy zz\n" +
+                "This is a test file 3 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
                 "As always this is going to be interesting and we know it!!";
 
         String expected4 = "\"Test @@@/:4\"\n" +
-                "This is a test @@@/ 4 for the replace utility!!\n" +
-                "The replace can happen in multiple @@@/s!! @@ xx yy zz\n" +
+                "This is a test file 4 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
                 "As always this is going to be interesting and we know it!!";
 
@@ -2548,8 +2546,8 @@ public class MyMainTest {
     public void myMainTest51() throws Exception {
 
         //Purpose of testcase: testing replace functionality on four non empty files with four replace combination(-l, -b, -f, -i) where
-        //FromStringContent = special characters(>1) and toStringContent = special characters(>1). Here it replaces
-        //the firs, last occurrence of string and all occurrence (case insensitive) and creates a back up of the file as well.
+        //FromStringContent = alphanumeric characters(>1) and toStringContent = special characters(>1). Here it replaces
+        //the first occurrence (case insensitive) and creates a back up of the file as well.
 
         /*
         Presence of a file(s) where replace functionality is applied :  Four file
@@ -2565,33 +2563,32 @@ public class MyMainTest {
         File inputFile2 = createFileB();
         File inputFile3 = createFileC();
         File inputFile4 = createFileE();
-        String args[] = {"-l", "-b", "-f", "-i", "!!", " @##@ ", "--", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
+        String args[] = {"-l", "-b", "-f", "-i", "file", " @##@ ", "--", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
         Main.main(args);
 
-        String expected1 = "Testing File :\n" +
+        String expected1 = "Testing  @##@  :\n" +
                 "Replace utility is used to test a file with replace options\n" +
-                "now let's test it @##@ !\n" +
+                "now let's test it!!!\n" +
                 "this file has a bunch of codes...\n" +
-                "We all know that \"Replace Utility\" is awesome @##@ ";
+                "We all know that \"Replace Utility\" is awesome!!";
 
-        String expected2 = "\"Test File:2\"\n" +
-                "This is a test file 2 for the replace utility @##@ \n" +
-                "The replace can happen in multiple files @##@  @@ xx yy zz\n" +
+        String expected2 = "\"Test  @##@ :2\"\n" +
+                "This is a test file 2 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
-                "As always this is going to be interesting and we know it @##@ ";
+                "As always this is going to be interesting and we know it!!";
 
-        String expected3 = "\"Test File:3\"\n" +
-                "This is a test file 3 for the replace utility @##@ \n" +
-                "The replace can happen in multiple files @##@  @@ xx yy zz\n" +
+        String expected3 = "\"Test  @##@ :3\"\n" +
+                "This is a test file 3 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
-                "As always this is going to be interesting and we know it @##@ ";
+                "As always this is going to be interesting and we know it!!";
 
-        String expected4 = "\"Test File:4\"\n" +
-                "This is a test file 4 for the replace utility @##@ \n" +
-                "The replace can happen in multiple files @##@  @@ xx yy zz\n" +
+        String expected4 = "\"Test  @##@ :4\"\n" +
+                "This is a test file 4 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
-                "As always this is going to be interesting and we know it @##@ ";
-
+                "As always this is going to be interesting and we know it!!";
 
         String actual1 = getFileContent(inputFile1.getPath());
         assertEquals("The files match!", expected1, actual1);
@@ -2678,7 +2675,7 @@ public class MyMainTest {
 
         //Purpose of testcase: testing replace functionality on one file with four replace combination(-l, -b, -f, -i) where
         //FromStringContent = alphanumeric characters(>1) and toStringContent = empty. Here all
-        // the matching strings are replaced with case insensitive. A backup for the file is also created
+        // first occurance of string(case insensitive) is replaced with empty string. A backup for the file is also created
 
 
         File inputFile1 = createFileA();
@@ -2686,9 +2683,9 @@ public class MyMainTest {
         Main.main(args);
 
         String expected1 = "Testing  :\n" +
-                "Replace utility is used to test a  with replace options\n" +
+                "Replace utility is used to test a file with replace options\n" +
                 "now let's test it!!!\n" +
-                "this  has a bunch of codes...\n" +
+                "this file has a bunch of codes...\n" +
                 "We all know that \"Replace Utility\" is awesome!!";
 
         String actual1 = getFileContent(inputFile1.getPath());
@@ -2701,39 +2698,39 @@ public class MyMainTest {
 
         //Purpose of testcase: testing replace functionality on four non empty files with four replace combination(-l, -b, -f, -i) where
         //FromStringContent = alphanumeric characters(>1) and toStringContent = empty. Here it replaces
-        //the firs, last occurrence of string and all occurrence (case insensitive) and creates a back up of the file as well.
+        //the first occurrence (case insensitive) and creates a back up of the file as well.
 
 
         File inputFile1 = createFileA();
         File inputFile2 = createFileB();
         File inputFile3 = createFileC();
         File inputFile4 = createFileE();
-        String args[] = {"-l", "-b", "-f", "-i", "!!", "", "--", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
+        String args[] = {"-l", "-b", "-f", "-i", "file", "", "--", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
         Main.main(args);
 
-        String expected1 = "Testing File :\n" +
+        String expected1 = "Testing  :\n" +
                 "Replace utility is used to test a file with replace options\n" +
-                "now let's test it!\n" +
+                "now let's test it!!!\n" +
                 "this file has a bunch of codes...\n" +
-                "We all know that \"Replace Utility\" is awesome";
+                "We all know that \"Replace Utility\" is awesome!!";
 
-        String expected2 = "\"Test File:2\"\n" +
-                "This is a test file 2 for the replace utility\n" +
-                "The replace can happen in multiple files @@ xx yy zz\n" +
+        String expected2 = "\"Test :2\"\n" +
+                "This is a test file 2 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
-                "As always this is going to be interesting and we know it";
+                "As always this is going to be interesting and we know it!!";
 
-        String expected3 = "\"Test File:3\"\n" +
-                "This is a test file 3 for the replace utility\n" +
-                "The replace can happen in multiple files @@ xx yy zz\n" +
+        String expected3 = "\"Test :3\"\n" +
+                "This is a test file 3 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
-                "As always this is going to be interesting and we know it";
+                "As always this is going to be interesting and we know it!!";
 
-        String expected4 = "\"Test File:4\"\n" +
-                "This is a test file 4 for the replace utility\n" +
-                "The replace can happen in multiple files @@ xx yy zz\n" +
+        String expected4 = "\"Test :4\"\n" +
+                "This is a test file 4 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
-                "As always this is going to be interesting and we know it";
+                "As always this is going to be interesting and we know it!!";
 
         String actual1 = getFileContent(inputFile1.getPath());
         assertEquals("The files match!", expected1, actual1);
@@ -2828,7 +2825,7 @@ public class MyMainTest {
 
         String actual1 = getFileContent(inputFile1.getPath());
         assertEquals("The files match!", expected1, actual1);
-        assertTrue(Files.exists(Paths.get(inputFile1.getPath() + ".bck")));
+        assertFalse(Files.exists(Paths.get(inputFile1.getPath() + ".bck")));
 
     }
 
@@ -2850,7 +2847,7 @@ public class MyMainTest {
         String expected1 = "Testing files :\n" +
                 "Replace utility is used to test a file with replace options\n" +
                 "now let's test it!!!\n" +
-                "this file has are bunch of codes...\n" +
+                "this file has a bunch of codes...\n" +
                 "We all know that \"Replace Utility\" is awesome!!";
 
         String expected2 = "\"Test files:2\"\n" +
@@ -2970,14 +2967,16 @@ public class MyMainTest {
         // the other parameters are not executed. Here "-i" is being
         //replaced by 1 and "-i" is not passed as a parameter. Action performed in multiple files
 
+        //File6:This is a test App -i app is good -ii app is bad, -iii app is even better;
+        // File7:This is a test App rating. -i app is 5, -ii app is 6, -I app is 7;
 
         File inputFile1 = createFilePosixA();
         File inputFile2 = createFilePosixB();
         String args[] = {"-b", "-i", "--", "-i", "1.", "--", inputFile1.getPath(), inputFile2.getPath()};
         Main.main(args);
 
-        String expected1 = "This is a test App 1. app is good -ii app is bad, -iii app is even better";
-        String expected2 = "This is a test App rating. 1. app is 5, -ii app is 6, 1. app is 7";
+        String expected1 = "This is a test App 1. app is good 1.i app is bad, 1.ii app is even better";
+        String expected2 = "This is a test App rating. 1. app is 5, 1.i app is 6, 1. app is 7";
 
         String actual1 = getFileContent(inputFile1.getPath());
         assertEquals("The files match!", expected1, actual1);
@@ -2995,39 +2994,39 @@ public class MyMainTest {
     public void myMainTest64() throws Exception {
 
         //Purpose of testcase: testing replace functionality for a single character with options -l, -f, -i and -b. It should
-        //replace each and every character (case insensitive) and should create a back up. This should do for all the files.
+        //replace first character (case insensitive) and should create a back up. This should do for all the files.
 
 
         File inputFile1 = createFileA();
         File inputFile2 = createFileB();
         File inputFile3 = createFileC();
         File inputFile4 = createFileE();
-        String args[] = {"-f", "-l", "-b", "-i", "--", "a", "A", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
+        String args[] = {"-f", "-l", "-b", "-i", "a", "A", "--", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
         Main.main(args);
 
         String expected1 = "Testing File :\n" +
-                "ReplAce utility is used to test A file with replAce options\n" +
+                "ReplAce utility is used to test a file with replace options\n" +
                 "now let's test it!!!\n" +
-                "this file hAs Are bunch of codes...\n" +
-                "We All know thAt \"ReplAce Utility\" is Awesome!!";
+                "this file has a bunch of codes...\n" +
+                "We all know that \"Replace Utility\" is awesome!!";
 
         String expected2 = "\"Test File:2\"\n" +
-                "This is A test file 2 for the replAce utility!!\n" +
-                "The replAce cAn hAppen in multiple files!! @@ xx yy zz\n" +
-                "Let's see how things chAnges here.... \n" +
-                "As AlwAys this is going to be interesting And we know it!!";
+                "This is A test file 2 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
+                "Let's see how things changes here.... \n" +
+                "As always this is going to be interesting and we know it!!";
 
         String expected3 = "\"Test File:3\"\n" +
-                "This is A test file 3 for the replAce utility!!\n" +
-                "The replAce cAn hAppen in multiple files!! @@ xx yy zz\n" +
-                "Let's see how things chAnges here.... \n" +
-                "As AlwAys this is going to be interesting And we know it!!";
+                "This is A test file 3 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
+                "Let's see how things changes here.... \n" +
+                "As always this is going to be interesting and we know it!!";
 
         String expected4 = "\"Test File:4\"\n" +
-                "This is A test file 4 for the replAce utility!!\n" +
-                "The replAce cAn hAppen in multiple files!! @@ xx yy zz\n" +
-                "Let's see how things chAnges here.... \n" +
-                "As AlwAys this is going to be interesting And we know it!!";
+                "This is A test file 4 for the replace utility!!\n" +
+                "The replace can happen in multiple files!! @@ xx yy zz\n" +
+                "Let's see how things changes here.... \n" +
+                "As always this is going to be interesting and we know it!!";
 
         String actual1 = getFileContent(inputFile1.getPath());
         assertEquals("The files match!", expected1, actual1);
@@ -3053,14 +3052,14 @@ public class MyMainTest {
     public void myMainTest65() throws Exception {
 
         //Purpose of testcase: testing replace functionality with special characters with options -i and -b. This should
-        //enter a new line every time it finds the replace string (case insensitive)
+        //enter a new line every time it finds the replace string (case insensitive) foe every matching string
 
 
         File inputFile1 = createFileA();
         File inputFile2 = createFileB();
         File inputFile3 = createFileC();
         File inputFile4 = createFileE();
-        String args[] = {"-b", "-i", "--", "Test", "\n", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
+        String args[] = {"-b", "-i",  "Test", "\n", "--",inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
         Main.main(args);
 
         String expected1 = "\n" +
@@ -3072,16 +3071,16 @@ public class MyMainTest {
                 "this file has a bunch of codes...\n" +
                 "We all know that \"Replace Utility\" is awesome!!";
 
-        String expected2 = "\n" +
-                "\" File:2\"\n" +
+        String expected2 = "\"\n"  +
+                " File:2\"\n" +
                 "This is a \n" +
                 " file 2 for the replace utility!!\n" +
                 "The replace can happen in multiple files!! @@ xx yy zz\n" +
                 "Let's see how things changes here.... \n" +
                 "As always this is going to be interesting and we know it!!";
 
-        String expected3 = "\n" +
-                "\" File:3\"\n" +
+        String expected3 = "\"\n" +
+                " File:3\"\n" +
                 "This is a \n" +
                 " file 3 for the replace utility!!\n" +
                 "The replace can happen in multiple files!! @@ xx yy zz\n" +
@@ -3089,8 +3088,8 @@ public class MyMainTest {
                 "As always this is going to be interesting and we know it!!";
 
 
-        String expected4 = "\n" +
-                "\" File:4\"\n" +
+        String expected4 = "\"\n" +
+                " File:4\"\n" +
                 "This is a \n" +
                 " file 4 for the replace utility!!\n" +
                 "The replace can happen in multiple files!! @@ xx yy zz\n" +
@@ -3127,7 +3126,7 @@ public class MyMainTest {
         File inputFile2 = createFileB();
         File inputFile3 = createFileC();
         File inputFile4 = createFileE();
-        String args[] = {"-b", "-i", "--", "Test", "\"Test\"", inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
+        String args[] = {"-b", "-i", "Test", "\"Test\"", "--",inputFile1.getPath(), inputFile2.getPath(), inputFile3.getPath(), inputFile4.getPath()};
         Main.main(args);
         String expected1 = "\"Test\"ing File :\n" +
                 "Replace utility is used to \"Test\" a file with replace options\n" +
