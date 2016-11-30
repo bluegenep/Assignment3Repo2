@@ -4,7 +4,9 @@ package edu.gatech.seclass.replace;
 
 import org.junit.rules.TemporaryFolder;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -16,7 +18,7 @@ import java.util.regex.Pattern;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
-public class Main {
+public class MainRefactor {
 
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
     private Charset charset = StandardCharsets.UTF_8;
@@ -25,7 +27,7 @@ public class Main {
     public static void main(String[] args) {
         // write your code here
         String replacedContent = "";
-        Main newMain = new Main();
+        MainRefactor newMain = new MainRefactor();
 
         boolean firstReplace = false;
         boolean lastReplace = false;
@@ -96,7 +98,7 @@ public class Main {
 
 
             if(numofDDash == 0){
-                newMain.usage();
+                System.out.println ("No operation");
             }
             else if(numofDDash == 1 ) {
                 int positionToCheck =0;
@@ -115,7 +117,7 @@ public class Main {
 
                     if ((args[i].equals("-b") || args[i].equals("-l") || args[i].equals("-f") || args[i].equals("-i"))
                             && (!replaceOptReal.contains(args[i])))
-                    {
+                            {
 
                         //&& (replaceOptReal.contains
                         //replaceOptReal = replaceOptReal.stream().distinct().collect(Collectors.toList());
@@ -138,26 +140,26 @@ public class Main {
 
 
 
-                for (int i = realDelimiter - 1; i > positionToCheck; i -= 2) {
-                    //for(int i = positionToCheck+1 ; i < realDelimiter; i+=2) {
-                    toReplaceString.add(args[i]);
-                    fromReplaceString.add(args[i - 1]);
-                    //fromToString.add(new AbstractMap.SimpleEntry(args[i-1],args[i]));
-                    // This is to only use the first replace if the fromString are same and to string differ (TC:46)
-                    fromToString.add(new AbstractMap.SimpleEntry(args[i - 1], args[i]));
-                    for (Map.Entry<String, String> test : fromToString) {
-                        if (test.getKey().equals("")) {
-                            test.setValue("");
-                            newMain.usage();
-                        } else if (test.getKey().equals(args[i - 1])) {
-                            test.setValue(args[i]);
-                        }
+                    for (int i = realDelimiter - 1; i > positionToCheck; i -= 2) {
+                        //for(int i = positionToCheck+1 ; i < realDelimiter; i+=2) {
+                        toReplaceString.add(args[i]);
+                        fromReplaceString.add(args[i - 1]);
+                        //fromToString.add(new AbstractMap.SimpleEntry(args[i-1],args[i]));
+                        // This is to only use the first replace if the fromString are same and to string differ (TC:46)
+                        fromToString.add(new AbstractMap.SimpleEntry(args[i - 1], args[i]));
+                        for (Map.Entry<String, String> test : fromToString) {
+                            if (test.getKey().equals("")) {
+                                test.setValue("");
+                                newMain.usage();
+                            } else if (test.getKey().equals(args[i - 1])) {
+                                test.setValue(args[i]);
+                            }
 
+
+                        }
+                        //fromToString.add(new AbstractMap.SimpleEntry(args[i-1],args[i]));
 
                     }
-                    //fromToString.add(new AbstractMap.SimpleEntry(args[i-1],args[i]));
-
-                }
 
                 //getFromToOptionsList(fromToString);
 
@@ -185,183 +187,183 @@ public class Main {
                 }
 
             }
-            //check for useless
-            //Checking for backup
-            if (replaceOptReal.contains("-b")) {
-                backUp = true;
-            }
+                        //check for useless
+                        //Checking for backup
+                        if (replaceOptReal.contains("-b")) {
+                            backUp = true;
+                        }
 
-            //looping to see how manyreplace options we have and perform actions accordingly
-            if (replaceOptReal.size() == 1) {
-                if (replaceOptReal.contains("-f")) {
-                    firstReplace = true;
-                } else if (replaceOptReal.contains("-l")) {
-                    lastReplace = true;
-                } else if (replaceOptReal.contains("-i")) {
-                    allReplace = true;
-                } else if (replaceOptReal.contains("-b")) {
-                    backUp = true;
-                    allReplaceCaseSensitive = true;
-                } else {
-                    allReplaceCaseSensitive = true;
-                }
+                        //looping to see how manyreplace options we have and perform actions accordingly
+                        if (replaceOptReal.size() == 1) {
+                            if (replaceOptReal.contains("-f")) {
+                                firstReplace = true;
+                            } else if (replaceOptReal.contains("-l")) {
+                                lastReplace = true;
+                            } else if (replaceOptReal.contains("-i")) {
+                                allReplace = true;
+                            } else if (replaceOptReal.contains("-b")) {
+                                backUp = true;
+                                allReplaceCaseSensitive = true;
+                            } else {
+                                allReplaceCaseSensitive = true;
+                            }
 
-            } else if (replaceOptReal.size() == 0) {
-                allReplaceCaseSensitive = true;
-            } else if (replaceOptReal.size() == 2) {
-                if (replaceOptReal.contains("-f") && (replaceOptReal.contains("-l"))) {
-                    firstReplace = true;
-                    lastReplace = true;
-                } else if (replaceOptReal.contains("-l") && (replaceOptReal.contains("-i"))) {
-                    //lastCaseSensitive = true;
-                } else if (replaceOptReal.contains("-i") && (replaceOptReal.contains("-f"))) {
-                    firstReplaceFromAll = true;
-                } else if (replaceOptReal.contains("-b") && (replaceOptReal.contains("-f"))) {
-                    firstReplace = true;
-                } else if (replaceOptReal.contains("-b") && (replaceOptReal.contains("-l"))) {
-                    lastReplace = true;
-                } else if (replaceOptReal.contains("-b") && (replaceOptReal.contains("-i"))) {
-                    allReplace = true;
-                }
+                        } else if (replaceOptReal.size() == 0) {
+                            allReplaceCaseSensitive = true;
+                        } else if (replaceOptReal.size() == 2) {
+                            if (replaceOptReal.contains("-f") && (replaceOptReal.contains("-l"))) {
+                                firstReplace = true;
+                                lastReplace = true;
+                            } else if (replaceOptReal.contains("-l") && (replaceOptReal.contains("-i"))) {
+                                //lastCaseSensitive = true;
+                            } else if (replaceOptReal.contains("-i") && (replaceOptReal.contains("-f"))) {
+                                firstReplaceFromAll = true;
+                            } else if (replaceOptReal.contains("-b") && (replaceOptReal.contains("-f"))) {
+                                firstReplace = true;
+                            } else if (replaceOptReal.contains("-b") && (replaceOptReal.contains("-l"))) {
+                                lastReplace = true;
+                            } else if (replaceOptReal.contains("-b") && (replaceOptReal.contains("-i"))) {
+                                allReplace = true;
+                            }
 
-            } else if (replaceOptReal.size() == 3) {
-                if (replaceOptReal.contains("-f") && (replaceOptReal.contains("-l")) && (replaceOptReal.contains("-i"))) {
-                    allReplace = true;
+                        } else if (replaceOptReal.size() == 3) {
+                            if (replaceOptReal.contains("-f") && (replaceOptReal.contains("-l")) && (replaceOptReal.contains("-i"))) {
+                                allReplace = true;
 
-                } else if (replaceOptReal.contains("-b") && (replaceOptReal.contains("-f")) && (replaceOptReal.contains("-l"))) {
-                    firstReplace = true;
-                    lastReplace = true;
-                } else if (replaceOptReal.contains("-b") && (replaceOptReal.contains("-l")) && (replaceOptReal.contains("-i"))) {
-                    lastReplace = true;
-                } else if (replaceOptReal.contains("-b") && (replaceOptReal.contains("-i")) && (replaceOptReal.contains("-f"))) {
-                    firstReplaceFromAll = true;
-                }
+                            } else if (replaceOptReal.contains("-b") && (replaceOptReal.contains("-f")) && (replaceOptReal.contains("-l"))) {
+                                firstReplace = true;
+                                lastReplace = true;
+                            } else if (replaceOptReal.contains("-b") && (replaceOptReal.contains("-l")) && (replaceOptReal.contains("-i"))) {
+                                lastReplace = true;
+                            } else if (replaceOptReal.contains("-b") && (replaceOptReal.contains("-i")) && (replaceOptReal.contains("-f"))) {
+                                firstReplaceFromAll = true;
+                            }
 
-            } else if (replaceOptReal.size() == 4) {
-                if (replaceOptReal.contains("-f") && (replaceOptReal.contains("-l")) && (replaceOptReal.contains("-l")) && (replaceOptReal.contains("-i"))) {
-                    firstReplaceFromAll = true;
-                }
+                        } else if (replaceOptReal.size() == 4) {
+                            if (replaceOptReal.contains("-f") && (replaceOptReal.contains("-l")) && (replaceOptReal.contains("-l")) && (replaceOptReal.contains("-i"))) {
+                                firstReplaceFromAll = true;
+                            }
 
-            }
-        }
+                        }
+                    }
 
-        //PRB check for this option
+                    //PRB check for this option
                     /*else {
                         System.err.println("File "+ testFile.getName() + " not found");
                     }*/
-        //}
+                //}
 
 
-        //If no delimeter throw null exception
+                //If no delimeter throw null exception
             /*if (noOfDoubleDash == 0) {
                 throw new NullPointerException("");
             }
             File[] files = new File[noOfFile];*/
 
-        //Loop for checking the replaces
+                //Loop for checking the replaces
 
 
         //check or replaceOptReal.size +1. It was not that size
-        for (int k = 0; k < filesList.size(); k++) {
-            //Testing now for replaces
+                for (int k = 0; k < filesList.size(); k++) {
+                    //Testing now for replaces
 
-            //Testing if the file exists
-            File oldFile = new File(filesList.get(k));
+                    //Testing if the file exists
+                    File oldFile = new File(filesList.get(k));
 
-            File backupFile = new File(filesList.get(k)+".bck");
+                    File backupFile = new File(filesList.get(k)+".bck");
 
-            if(!oldFile.exists()){
-                System.err.println("File "+ oldFile.getName() + " not found");
-            }
-            else if((backupFile.exists() && (replaceOptReal.contains("-b")))){
-                System.err.println("Not performing replace for " + oldFile.getName() + ": Backup file already exists");
-            }
-            else {
-                for(Map.Entry<String, String> entry :fromToString) {
-
-
-                    if (backUp == true) {
-                        //File oldFile = new File(filesList.get(k));
-                        //for (Map.Entry<String, String> entry : fromToString) {
-                        fromString = entry.getKey();
-                        toString = entry.getValue();
-                        try {
-                            newMain.backUpOption(oldFile);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        //}
+                    if(!oldFile.exists()){
+                        System.err.println("File "+ oldFile.getName() + " not found");
                     }
-                    if (firstReplace == true) {
-                        //File oldFile = new File(filesList.get(k));
-                        //for (Map.Entry<String, String> entry : fromToString) {
-                        fromString = entry.getKey();
-                        toString = entry.getValue();
-                        try {
-                            newMain.firstReplceDashF(fromString, toString, oldFile);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        //}
+                    else if((backupFile.exists() && (replaceOptReal.contains("-b")))){
+                        System.err.println("Not performing replace for " + oldFile.getName() + ": Backup file already exists");
                     }
+                    else {
+                        for(Map.Entry<String, String> entry :fromToString) {
 
-                    if (lastReplace == true) {
-                        //File oldFile = new File(filesList.get(k));
-                        //for (Map.Entry<String, String> entry : fromToString) {
-                        fromString = entry.getKey();
-                        toString = entry.getValue();
-                        try {
-                            newMain.lastReplceDashL(fromString, toString, oldFile);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+
+                            if (backUp == true) {
+                                //File oldFile = new File(filesList.get(k));
+                                //for (Map.Entry<String, String> entry : fromToString) {
+                                fromString = entry.getKey();
+                                toString = entry.getValue();
+                                try {
+                                    newMain.backUpOption(oldFile);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                //}
+                            }
+                            if (firstReplace == true) {
+                                //File oldFile = new File(filesList.get(k));
+                                //for (Map.Entry<String, String> entry : fromToString) {
+                                fromString = entry.getKey();
+                                toString = entry.getValue();
+                                try {
+                                    newMain.firstReplceDashF(fromString, toString, oldFile);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                //}
+                            }
+
+                            if (lastReplace == true) {
+                                //File oldFile = new File(filesList.get(k));
+                                //for (Map.Entry<String, String> entry : fromToString) {
+                                fromString = entry.getKey();
+                                toString = entry.getValue();
+                                try {
+                                    newMain.lastReplceDashL(fromString, toString, oldFile);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                //}
+                            }
+
+                            if (allReplace == true) {
+                                //File oldFile = new File(filesList.get(k));
+                                //for (Map.Entry<String, String> entry : fromToString) {
+                                fromString = entry.getKey();
+                                toString = entry.getValue();
+
+                                try {
+                                    newMain.allReplceDashI(fromString, toString, oldFile);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                //}
+
+
+                            }
+
+                            if (allReplaceCaseSensitive == true) {
+                                //File oldFile = new File(filesList.get(k));
+                                //for (Map.Entry<String, String> entry : fromToString) {
+                                fromString = entry.getKey();
+                                toString = entry.getValue();
+                                try {
+                                    newMain.allReplceCaseSensitive(fromString, toString, oldFile);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                //}
+
+                            }
+                            if (firstReplaceFromAll == true) {
+                                //File oldFile = new File(filesList.get(k));
+                                //for (Map.Entry<String, String> entry : fromToString) {
+                                fromString = entry.getKey();
+                                toString = entry.getValue();
+                                try {
+                                    newMain.firstReplaceForAll(fromString, toString, oldFile);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                    //fromToString
+                                }
+                                //}
+
+                            }
                         }
-                        //}
-                    }
-
-                    if (allReplace == true) {
-                        //File oldFile = new File(filesList.get(k));
-                        //for (Map.Entry<String, String> entry : fromToString) {
-                        fromString = entry.getKey();
-                        toString = entry.getValue();
-
-                        try {
-                            newMain.allReplceDashI(fromString, toString, oldFile);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        //}
-
-
-                    }
-
-                    if (allReplaceCaseSensitive == true) {
-                        //File oldFile = new File(filesList.get(k));
-                        //for (Map.Entry<String, String> entry : fromToString) {
-                        fromString = entry.getKey();
-                        toString = entry.getValue();
-                        try {
-                            newMain.allReplceCaseSensitive(fromString, toString, oldFile);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        //}
-
-                    }
-                    if (firstReplaceFromAll == true) {
-                        //File oldFile = new File(filesList.get(k));
-                        //for (Map.Entry<String, String> entry : fromToString) {
-                        fromString = entry.getKey();
-                        toString = entry.getValue();
-                        try {
-                            newMain.firstReplaceForAll(fromString, toString, oldFile);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            //fromToString
-                        }
-                        //}
-
-                    }
-                }
 
 
 /*
@@ -447,12 +449,12 @@ public class Main {
                             }
 
                         }*/
+                    }
+
+                }
+
+
             }
-
-        }
-
-
-    }
 
 
 
@@ -506,7 +508,7 @@ public class Main {
 
         for (int i = 0; i <args.length; i ++){
             if (args[i].equals("-b") || args[i].equals("-l") || args[i].equals("-f") || args[i].equals("-i") ){
-                replaceOptionsParse.add(args[i]);
+            replaceOptionsParse.add(args[i]);
             }
             else if (args[i].equals("--")){
                 firstDash = i;
@@ -542,28 +544,28 @@ public class Main {
 
         }
         else if(numofDDash == 2 ){
-            for(int i = realDashPosition; i <args.length; i ++){
-                filesList.add(args[i]);
+                for(int i = realDashPosition; i <args.length; i ++){
+                    filesList.add(args[i]);
 
-            }
+                }
 
-            for(int i = 0 ; i <(firstDash); i++) {
-                if (args[i].equals("-b") || args[i].equals("-l") || args[i].equals("-f") || args[i].equals("-i")) {
-                    replaceOptReal.add(args[i]);
+                for(int i = 0 ; i <(firstDash); i++) {
+                    if (args[i].equals("-b") || args[i].equals("-l") || args[i].equals("-f") || args[i].equals("-i")) {
+                        replaceOptReal.add(args[i]);
+                    }
+
+                }
+
+                for(int i = firstDash+1 ; i <(realDashPosition); i+=2) {
+                    fromReplaceString.add(args[i]);
+                    toReplaceString.add(args[i+1]);
                 }
 
             }
 
-            for(int i = firstDash+1 ; i <(realDashPosition); i+=2) {
-                fromReplaceString.add(args[i]);
-                toReplaceString.add(args[i+1]);
-            }
-
-        }
 
 
-
-        //return {a,b};
+    //return {a,b};
     }
 
     //Operation for BackUp
